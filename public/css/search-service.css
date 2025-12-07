@@ -1,0 +1,116 @@
+/* Search Section Styles */
+.search-section {
+    margin-top: -95px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+.search-container {
+    display: flex;
+    background: white;
+    border-radius: 25px;
+    padding: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    background: transparent;
+    color: #333;
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.search-button {
+    background: #255944;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 20px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background: #1e4635;
+}
+
+.search-button i {
+    font-size: 18px;
+}
+
+/* Service Buttons Section Styles */
+.service-buttons-section {
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 2;
+}
+
+.service-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.service-button {
+    background: white;
+    border: none;
+    border-radius: 15px;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    min-width: 150px;
+    text-align: center;
+}
+
+.service-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-button:hover {
+    background: #1e4635;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.service-button i {
+    font-size: 24px;
+}
+
+.service-button span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .service-button {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .search-container {
+        margin: 0 20px;
+    }
+}

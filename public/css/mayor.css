@@ -1,0 +1,46 @@
+.page-head { background: #1f4d37; color:#fff; padding: 19px 0; border-radius: 5px 5px 25px 25px; width: 90%; margin-left: auto;  margin-right: auto; }
+.page-head .breadcrumb-link { color:#d8f3e4; text-decoration:none; }
+.page-head .breadcrumb-link.active { color:#fff; font-weight:700; }
+
+.mayor-information { background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,.08); margin-left: 10px; }
+.mayor-information .image img { width:100%; height:auto; display:block; }
+.mayor-info { padding:16px; text-align:center; }
+.mayor-info .fullname { font-size:22px; font-weight:700; }
+.mayor-info .job { color:#666; font-size:14px; }
+.mayor-social { display:flex; gap:12px; justify-content:center; padding-bottom:16px; }
+.mayor-social a { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; background:#f3f5f4; }
+
+.section-title { font-weight:700; color:#1f4d37; }
+
+.mayor-tab .nav-link { background:#f3f5f4; border-radius:10px; margin:0 6px; color:#1f4d37; }
+.mayor-tab .nav-link.active { background:#1f4d37; color:#fff !important; }
+
+.resume-list li { margin-bottom:10px; }
+
+/* Timeline style resume */
+.resume-timeline { position: relative; padding-left: 28px; }
+.resume-timeline::before { content:''; position:absolute; left:8px; top:0; bottom:0; width:2px; background:#1f4d37; }
+.resume-timeline > li { position: relative; margin-bottom:14px; }
+.resume-timeline > li::before { content:''; position:absolute; left:-25px; top:6px; width:12px; height:12px; border:3px solid #1f4d37; background:#fff; border-radius:50%; }
+.resume-timeline .no-dot::before { display:none; }
+.resume-timeline b { color:#1f4d37; }
+
+.old-mayor { display:flex; gap:16px; align-items:center; padding:14px; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.05); margin-bottom:12px; }
+.old-mayor-image img { width:80px; height:80px; object-fit:cover; border-radius:8px; }
+.old-mayor-name { font-weight:700; }
+.old-mayor-job-title { color:#666; font-size:14px; }
+.old-mayor-period .text { color:#999; font-size:12px; }
+.old-mayor-period .date { font-weight:600; }
+
+.twitter-wrap iframe { border-radius:12px; }
+
+.sub-nav{
+    color: #333!important;
+    width: 90% !important;
+}
+
+.whitebox{
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 20px;
+}

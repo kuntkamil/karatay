@@ -1,0 +1,255 @@
+/* Karatay TV Section Styles */
+.karatay-tv-section {
+    background-color: #f8f9fa;
+    padding: 80px 0;
+    position: relative;
+}
+
+.tv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tv-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c5530;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.all-videos-link {
+    color: #2c5530;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 2px solid #2c5530;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.all-videos-link:hover {
+    background-color: #2c5530;
+    color: #fff;
+    text-decoration: none;
+}
+
+.video-cards-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+.video-card {
+    flex: 1;
+    max-width: 350px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: #fff;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 185px;
+    overflow: hidden;
+}
+
+.thumbnail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover .thumbnail-image {
+    transform: scale(1.05);
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.play-button i {
+    font-size: 24px;
+    color: #2c5530;
+    margin-left: 3px; /* Play icon centering */
+}
+
+.video-card:hover .play-button {
+    background: rgba(255, 255, 255, 1);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-overlay {
+    background: linear-gradient(135deg, #2c5530 0%, #1a3d1e 100%);
+    padding: 20px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.video-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/* YouTube API Integration Styles */
+.youtube-integration {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.api-status {
+    padding: 20px;
+    background: #e9ecef;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.status-text {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2c5530;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .video-cards-container {
+        gap: 20px;
+    }
+    
+    .video-card {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 992px) {
+    .karatay-tv-section {
+        padding: 60px 0;
+    }
+    
+    .tv-title {
+        font-size: 28px;
+    }
+    
+    .video-cards-container {
+        gap: 15px;
+    }
+    
+    .video-card {
+        max-width: 280px;
+    }
+    
+    .video-thumbnail {
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tv-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .tv-title {
+        font-size: 24px;
+    }
+    
+    .video-cards-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .video-card {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .video-thumbnail {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .karatay-tv-section {
+        padding: 40px 0;
+    }
+    
+    .tv-title {
+        font-size: 20px;
+    }
+    
+    .all-videos-link {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+    
+    .video-thumbnail {
+        height: 180px;
+    }
+    
+    .video-title {
+        font-size: 14px;
+    }
+    
+    .play-button {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .play-button i {
+        font-size: 20px;
+    }
+}

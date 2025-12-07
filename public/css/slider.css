@@ -1,0 +1,47 @@
+/* Slider Styles */
+.bx-viewport{
+    height: 85vh !important;
+    color: white;
+    font-weight: bold;
+    font-size: 48px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.bx-wrapper{
+    margin: 40px;
+    border-radius: 20px;
+    margin-top: -100px;
+    z-index: 0;
+    border: none;
+}
+
+.bx-pager{
+    display: none;
+}
+
+.slider > div {
+    padding-top: 70vh;
+}
+
+.bx-wrapper img{
+    position: absolute;
+    top: 0;
+    height: 85vh;
+    border-radius: 20px;
+}
+
+.bx-wrapper span{
+    position: relative;
+    display: block;
+    font-size: 50px;
+    background: linear-gradient(90deg, rgba(37, 89, 68, 0.00) 0%, #255944 50%, rgba(37, 89, 68, 0.00) 100%);
+}
+
+.bx-wrapper .bx-prev{
+    background: url(../images/controls.png) 0 -32px no-repeat !important;
+}
+
+.bx-wrapper .bx-next{
+    background: url(../images/controls.png) -43px -32px no-repeat !important;
+}

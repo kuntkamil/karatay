@@ -1,0 +1,19 @@
+/* Override Backpack Tabler theme background (force a plain color) */
+html, body {
+	background: #ebebeb !important; /* resets color + image */
+}
+
+/* Remove any background images/patterns the theme sets */
+body, .page, .page-wrapper {
+	background-image: none !important;
+}
+
+/* Tabler fuzzy-background also sets background on html[data-bs-theme=light] */
+html[data-bs-theme="light"] {
+	background: #ebebeb !important;
+}
+
+/* Keep cards readable on the new background */
+.card { background-color: #ffffff; }
+
+
