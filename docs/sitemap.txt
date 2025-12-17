@@ -1,0 +1,156 @@
+Sitemap Rehberi (KaratayBelediyesi)
+
+1) Sitemap nedir?
+- Sitemap; arama motorlarına sitenizdeki sayfaların tam listesini, ne sıklıkla güncellendiğini ve en son ne zaman değiştiğini veren XML dosyalarıdır.
+- Amaç: Taranabilirlik ve keşfi artırmak, özellikle yeni veya derin sayfaların bulunmasını kolaylaştırmak.
+
+2) Hangi sitemap türleri kullanılabilir?
+- Genel URL Sitemap: Tüm önemli URL'ler (haber, proje, müdürlük, statik sayfalar).
+- Sitemap Index: Birden fazla sitemap’ı listeleyen üst dosya (büyük sitelerde önerilir).
+- Haber (News) Sitemap: Haber içerikleri için; Google News gereksinimlerine uygunsa (son 48 saat ve yayıncı verisi gibi).
+- Görsel (Image) Sitemap: Sayfalardaki önemli görsellerin bildirilmesi.
+- Video Sitemap: Video içeriklerinin bildirimi.
+
+3) Bu proje için URL yapıları
+- Haber detayı: /haberdetay/{slug}  (route name: news.show)
+- Proje detayı: /proje/{slug}       (route name: projects.show)
+- Müdürlük sayfası: /mudurluk/{mudurluk} (route name: departments.show)
+- Kurumsal statik sayfalar: /kurumsal/baskan, /kurumsal/baskanyardimcilari, /kurumsal/meclisuyeleri, /kurumsal/encumenuyeleri, /kurumsal/mudurler, /kurumsal/kurumsal-sema, /kurumsal/logomuz
+
+4) XML örnekleri (şema)
+- Basit sitemap.xml (örnek):
+  <?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+      <loc>https://{DOMAIN}/</loc>
+      <lastmod>2025-12-01</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+    </url>
+    <url>
+      <loc>https://{DOMAIN}/haberdetay/ahilik-haftasi-kapsaminda-gonul-koprusu-kuruldu</loc>
+      <lastmod>2025-12-01</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.9</priority>
+    </url>
+  </urlset>
+
+- Sitemap index (çoklu dosya için):
+  <?xml version="1.0" encoding="UTF-8"?>
+  <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap><loc>https://{DOMAIN}/sitemaps/sitemap-static.xml</loc></sitemap>
+    <sitemap><loc>https://{DOMAIN}/sitemaps/sitemap-news.xml</loc></sitemap>
+    <sitemap><loc>https://{DOMAIN}/sitemaps/sitemap-projects.xml</loc></sitemap>
+    <sitemap><loc>https://{DOMAIN}/sitemaps/sitemap-departments.xml</loc></sitemap>
+  </sitemapindex>
+
+- News sitemap (isteğe bağlı):
+  <?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+          xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+      <loc>https://{DOMAIN}/haberdetay/{slug}</loc>
+      <news:news>
+        <news:publication>
+          <news:name>Karatay Belediyesi</news:name>
+          <news:language>tr</news:language>
+        </news:publication>
+        <news:publication_date>2025-12-01T10:00:00+03:00</news:publication_date>
+        <news:title>Haber Başlığı</news:title>
+      </news:news>
+      <lastmod>2025-12-01</lastmod>
+    </url>
+  </urlset>
+
+- Image etiketli URL (isteğe bağlı):
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+          xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+      <loc>https://{DOMAIN}/haberdetay/{slug}</loc>
+      <image:image>
+        <image:loc>https://{DOMAIN}/images/news/{image_name}</image:loc>
+        <image:title>Görsel başlığı (opsiyonel)</image:title>
+      </image:image>
+    </url>
+  </urlset>
+
+5) Laravel’de uygulama adımları (öneri)
+- Rotalar (routes/web.php):
+  GET /sitemap.xml           -> Sitemap index veya tek dosya
+  GET /sitemaps/sitemap-static.xml
+  GET /sitemaps/sitemap-news.xml
+  GET /sitemaps/sitemap-projects.xml
+  GET /sitemaps/sitemap-departments.xml
+
+- Controller (örnek akış):
+  - sitemapIndex(): index dosyasını üretir, alt sitemap’ların URL’lerini listeler.
+  - sitemapStatic(): statik sayfaları ve anasayfayı üretir.
+  - sitemapNews(): aktif ve yayınlanmış haberleri çeker (News::where('is_active', true)->whereNotNull('published_at')->orderByDesc('published_at')).
+  - sitemapProjects(): aktif projeleri listeler (Project benzeri).
+  - sitemapDepartments(): mevcut müdürlük sayfalarını listeler.
+  - Her metot XML string üretir ve "application/xml" Content-Type ile döner.
+
+- İçerik başlıkları:
+  return response($xml, 200)->header('Content-Type', 'application/xml; charset=UTF-8');
+
+- Mutlaka tam (absolute) URL kullanın:
+  - URL üretirken config('app.url') veya url('/') baz alın.
+
+- Cache / performans:
+  - XML çıktısını cache’e (ör. 10-60 dk) koymak tarama yükünü azaltır.
+  - İsteğe bağlı ETag/Last-Modified başlıkları eklenebilir (If-None-Match/If-Modified-Since desteği).
+
+6) robots.txt entegrasyonu
+- /robots.txt dosyasına şunu ekleyin:
+  Sitemap: https://{DOMAIN}/sitemap.xml
+
+7) Güncelleme sıklığı ve ping
+- Büyük değişikliklerde site haritasını yeniden üretin.
+- İsteğe bağlı ping (Google/Bing):
+  - Google: https://www.google.com/ping?sitemap=https://{DOMAIN}/sitemap.xml
+  - Bing:   https://www.bing.com/ping?sitemap=https://{DOMAIN}/sitemap.xml
+
+8) Limitler ve en iyi uygulamalar
+- Tek sitemap dosyası: max 50.000 URL veya 50MB (sıkıştırılmamış). Daha fazlası için parçalayın ve sitemap index kullanın.
+- changefreq/priority sadece ipucudur, zorunlu değildir.
+- Kanonik (canonical) URL’lerinizle tutarlı olun; aynı sayfa için tek URL yayınlayın.
+- Parametreli, oturumlu, admin URL’lerini dahil etmeyin (özellikle /admin/... asla eklenmemeli).
+
+9) Bu projeye özel alanlar
+- Haberler (News): yalnızca is_active = true ve published_at != null olanlar.
+- Projeler (Project): is_active = true olanlar.
+- Görseller: Haberlerde ana görsel olarak images/news/{image_name} kullanılabilir (Image sitemap ile).
+- Statik sayfalar: kurumsal sayfa rotalarını listeleyin.
+
+10) Doğrulama ve izleme
+- Google Search Console’da sitemap.xml’i ekleyin ve işlenme durumunu kontrol edin.
+- sitemap.xml ve alt dosyalar 200 OK döndürmeli, içerik tipi application/xml olmalı.
+- XML’i W3C/online doğrulayıcılarla kontrol edin.
+
+11) Örnek pseudo-sorgular (Mantık anlatımı)
+- Haberler:
+  News::query()
+    ->where('is_active', true)
+    ->whereNotNull('published_at')
+    ->orderByDesc('published_at')
+    ->get();
+  URL: route('news.show', $news->slug) -> https://{DOMAIN}/haberdetay/{slug}
+  lastmod: $news->published_at->toDateString()
+
+- Projeler:
+  Project::query()->where('is_active', true)->orderByDesc('id')->get();
+  URL: route('projects.show', $project->slug) -> https://{DOMAIN}/proje/{slug}
+
+12) Gelişmiş seçenekler
+- Sayfalandırılmış sitemap’lar (sitemap-news-1.xml, sitemap-news-2.xml ...).
+- GZIP ile sıkıştırma (sitemap.xml.gz).
+- Kuşak (generation) işlemlerini Queue ile arka planda periyodik olarak güncelleme.
+
+Özet
+- 1) /sitemap.xml veya sitemap index rotası oluşturun.
+- 2) Haber, proje, müdürlük ve statik sayfalar için ayrı alt sitemap rotaları yazın.
+- 3) Mutlaka absolute URL ve doğru Content-Type kullanın, mümkünse cache ekleyin.
+- 4) robots.txt içine Sitemap satırını ekleyin, Search Console’dan doğrulayın.
+- 5) Admin URL’lerini hariç tutun; yalnızca kamuya açık sayfaları ekleyin.
+
+

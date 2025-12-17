@@ -1,12 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 // --------------------------
 // Custom Backpack Routes
 // --------------------------
 // This route file is loaded automatically by Backpack\CRUD.
 // Routes you generate using Backpack\Generators will be placed here.
+
+Route::group([
+	'prefix' => config('backpack.base.route_prefix', 'admin'),
+	'middleware' => (array) config('backpack.base.web_middleware', 'web'),
+], function () {
+	Route::get('news/{slug}/show', [HomeController::class, 'show'])
+		->where('slug', '[A-Za-z0-9-]+')
+		->name('admin.news.public-show');
+
+	Route::get('projects/{slug}/show', [HomeController::class, 'project'])
+		->where('slug', '[A-Za-z0-9-]+')
+		->name('admin.projects.public-show');
+});
 
 Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
